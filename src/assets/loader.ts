@@ -1,6 +1,7 @@
 import { AudioLoader, Group, Texture, TextureLoader } from 'three';
-import { AssetType } from './types';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
+
+import { AssetType } from './types';
 
 const loaders = {
     texture: new TextureLoader(),

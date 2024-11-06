@@ -1,6 +1,7 @@
 import * as THREE from 'three';
-import { AssetManifest, Asset, AssetBundle, AssetsInitOptions } from './types';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
+
+import { Asset, AssetBundle, AssetManifest, AssetsInitOptions } from './types';
 
 const assets = new Map<string, any>();
 const loadedBundles: string[] = [];

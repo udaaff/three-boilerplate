@@ -1,4 +1,5 @@
 import { DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, Scene, Texture, WebGLRenderer } from "three";
+
 import { getAsset, initAssets, loadBundles } from "./assets/assets";
 
 document.addEventListener("DOMContentLoaded", async () => {
