@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import { Asset, AssetBundle, AssetManifest, AssetsInitOptions } from './types';
 
 const assets = new Map<string, any>();
-const loadingBundles: string[] = [];
+const loadedBundles: string[] = [];
 let manifest: AssetManifest;
 let basePath: string;
 
@@ -13,13 +13,14 @@ function hasBundle(name: string): boolean {
 }
 
 async function loadBundle(bundle: AssetBundle): Promise<void> {
-    if (loadingBundles.includes(bundle.name))
+    if (loadedBundles.includes(bundle.name))
         return;
 
-    loadingBundles.push(bundle.name);
     for (const asset of bundle.assets) {
         await loadAsset(asset);
     }
+
+    loadedBundles.push(bundle.name);
 }
 
 export async function loadBundles(bundles: string | string[]): Promise<void> {
@@ -31,7 +32,7 @@ export async function loadBundles(bundles: string | string[]): Promise<void> {
             throw new Error(`Bundle "${bundleName}" does not exist`);
     }
 
-    bundles = bundles.filter(b => !loadingBundles.includes(b));
+    bundles = bundles.filter(b => !loadedBundles.includes(b));
     if (bundles.length === 0)
         return;
 

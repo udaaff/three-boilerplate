@@ -1,10 +1,21 @@
-import { DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, Scene, Texture, WebGLRenderer } from "three";
+import { DoubleSide, Group, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, Scene, Texture, WebGLRenderer } from "three";
 
 import { getAsset, initAssets, loadBundles } from "./assets/assets";
 
 document.addEventListener("DOMContentLoaded", async () => {
     await main();
 });
+
+function createLogo(): Mesh {
+    return new Mesh(
+        new PlaneGeometry(2, 2),
+        new MeshBasicMaterial({
+            map: getAsset<Texture>("three-js-icon.png"),
+            transparent: true,
+            side: DoubleSide
+        })
+    )
+}
 
 async function main() {
     const scene = new Scene();
@@ -22,6 +33,18 @@ async function main() {
     });
     await loadBundles("common");
 
+    const group = new Group();
+    scene.add(group);
+
+    // for (let i = 0; i < 20; ++i) {
+    //     const logo = createLogo();
+    //     logo.position.set(
+    //         -5 + 10 * Math.random(),
+    //         -5 + 10 * Math.random(),
+    //         -5 + 10 * Math.random()
+    //     );
+    //     group.add(logo);
+    // }
     const texture = getAsset<Texture>("three-js-icon.png");
     const material = new MeshBasicMaterial({
         map: texture, transparent: true, side: DoubleSide
@@ -38,9 +61,6 @@ async function main() {
 
     function animate() {
         requestAnimationFrame(animate);
-        plane.rotateX(0.01);
-        plane.rotateY(0.01);
-        plane.rotateZ(0.01);
         renderer.render(scene, camera);
     }
     animate();
