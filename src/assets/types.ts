@@ -1,9 +1,9 @@
-// types.ts
 export type AssetType = 'texture' | 'gltf' | 'audio';
 
 export interface AssetsInitOptions {
     manifestPath: string,
     basePath: string,
+    backgroundLoad?: boolean,
 }
 
 export interface AssetData {

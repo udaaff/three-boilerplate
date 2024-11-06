@@ -1,5 +1,5 @@
 import { DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, PlaneGeometry, Scene, Texture, WebGLRenderer } from "three";
-import { getAsset, initAssets, loadManifest } from "./assets/assets";
+import { getAsset, initAssets, loadBundles } from "./assets/assets";
 
 document.addEventListener("DOMContentLoaded", async () => {
     await main();
@@ -15,11 +15,11 @@ async function main() {
     renderer.setClearColor(0xffffff);
     document.body.appendChild(renderer.domElement);
 
-    initAssets({
+    await initAssets({
         manifestPath: "assets-manifest.json",
         basePath: "assets"
-    })
-    await loadManifest();
+    });
+    await loadBundles("common");
 
     const texture = getAsset<Texture>("three-js-icon.png");
     const material = new MeshBasicMaterial({
