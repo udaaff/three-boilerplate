@@ -36,22 +36,15 @@ async function main() {
     const group = new Group();
     scene.add(group);
 
-    // for (let i = 0; i < 20; ++i) {
-    //     const logo = createLogo();
-    //     logo.position.set(
-    //         -5 + 10 * Math.random(),
-    //         -5 + 10 * Math.random(),
-    //         -5 + 10 * Math.random()
-    //     );
-    //     group.add(logo);
-    // }
-    const texture = getAsset<Texture>("three-js-icon.png");
-    const material = new MeshBasicMaterial({
-        map: texture, transparent: true, side: DoubleSide
-    });
-    const geometry = new PlaneGeometry(2, 2);
-    const plane = new Mesh(geometry, material);
-    scene.add(plane);
+    for (let i = 0; i < 100; ++i) {
+        const logo = createLogo();
+        logo.position.set(
+            -10 + 20 * Math.random(),
+            -10 + 20 * Math.random(),
+            -10 + 20 * Math.random()
+        );
+        group.add(logo);
+    }
 
     window.addEventListener('resize', () => {
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -61,6 +54,10 @@ async function main() {
 
     function animate() {
         requestAnimationFrame(animate);
+        group.rotateY(0.001);
+        for (const cube of group.children) {
+            cube.rotateZ(0.002);
+        }
         renderer.render(scene, camera);
     }
     animate();
